@@ -10,8 +10,5 @@ automation/.env
 # Generated output
 automation/output/
 
-# Claude Code local settings
-.claude/
-
 # Large local-only recording
 jira.mp4
