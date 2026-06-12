@@ -90,5 +90,3 @@ python main.py ../transcripts/sample_meeting_transcript.txt --meeting-date 2026-
 python main.py ../transcripts/meeting_transcript.txt --meeting-date <YYYY-MM-DD of the meeting>
 ```
 
-4. Take screenshots of the created Jira tickets and the Slack message for the
-   submission.
