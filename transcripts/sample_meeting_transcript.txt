@@ -1,0 +1,91 @@
+Meeting: Weekly Research Sync - Fetal Cardiac Anomaly Detection
+Date: 2026-06-10
+Attendees: Asha Verma (Product Manager), Rahul Nair (ML Engineer)
+
+[Transcript]
+
+Asha: Thanks for jumping on, Rahul. Let's do a quick sync on where the cardiac anomaly
+model is at before the hospital partner demo. How did the latest evaluation run go?
+
+Rahul: It's a mixed picture. Recall on the four-chamber view is up to 94%, which is great,
+but we're still seeing a higher false positive rate than I'd like - around 11% on the
+validation set. Most of the false positives are coming from borderline cases where the
+nuchal translucency measurement is close to threshold.
+
+Asha: 11% is too high to show the partner. Their clinicians flagged false positives as
+their biggest concern after the last demo. What do you think is driving it?
+
+Rahul: I think it's mostly a data issue. The current training set doesn't have enough
+borderline-normal examples, so the model is biased toward flagging anything near the
+threshold. We did get the augmented dataset back from the annotation vendor last week -
+dataset v3 - which has about 2,000 additional borderline-normal cases.
+
+Asha: Okay, that sounds promising. Should we prioritize retraining with that before the
+demo, or is there a smaller fix we could ship first?
+
+Rahul: Given the demo is the main driver here, I think it's worth doing the full retrain
+on dataset v3. A quick threshold tweak might reduce false positives slightly but it'll
+hurt recall, and recall is the number the partner cares about most.
+
+Asha: Agreed, let's prioritize reducing the false positive rate using dataset v3 before
+the demo. That's the right call even if it means we're cutting it close on time.
+
+Rahul: Okay. I'll kick off the retraining run today. It usually takes about two days to
+train and another day to evaluate, so I can have results ready by Wednesday. I'll own
+that.
+
+Asha: Perfect, Rahul - can you have the retrained model evaluated and results shared by
+Wednesday? That gives us Thursday to decide if we need another iteration before Friday.
+
+Rahul: Yep, Wednesday works. I'll post the eval numbers in the research channel as soon
+as they're in.
+
+Asha: Great. Separately, the UI team has been blocked on the updated API response schema
+for the new soft-marker fields - the ones we added for cardiac findings. I told them I'd
+get them a finalized spec doc. I haven't done it yet because I wanted to confirm the
+field names with you first. Are "cardiac_finding_confidence" and "cardiac_finding_flags"
+still the final names, or did that change in the latest version?
+
+Rahul: Those are still accurate, we didn't rename anything. There's one new field though
+- "borderline_flag" - a boolean we added this week for the borderline cases we just
+discussed.
+
+Asha: Got it, I'll fold that in. I'll write up the API spec doc and share it with the UI
+team by end of this week so they're not blocked going into next sprint.
+
+Rahul: Sounds good. One more thing - last week QA flagged about 30 false positive cases
+from the staging environment for manual review, to help us understand error patterns
+better. I don't think anyone's gone through those yet.
+
+Asha: Right, those are sitting in the shared drive. We should get someone to review and
+categorize those before we finalize the retraining approach for the next cycle - the
+patterns might inform what additional data we need beyond dataset v3. I'm not sure if
+that's you, me, or one of the other ML engineers though - let's figure that out
+separately, it shouldn't block this week's retrain.
+
+Rahul: Fair, let's not block on it.
+
+Asha: Last thing - Dr. Mehta, our clinical advisor, asked to do a final review of the
+model's flagged cases before we put it in front of the hospital partner. Given the
+timeline, we should try to get that scheduled before Friday's demo, ideally Thursday
+afternoon after we see the retrain results.
+
+Rahul: Makes sense. I don't have visibility into Dr. Mehta's calendar though - that's
+probably more on the program side.
+
+Asha: True, I'll figure out who reaches out to coordinate that, just flagging it as
+something that needs to happen before Friday.
+
+Rahul: Got it. Oh - and once the retrain is done, I'll also update the metrics dashboard
+with the new numbers and send you the link so you have it for the demo prep doc. No
+particular rush on that, just whenever it's convenient after Wednesday.
+
+Asha: Sounds good. I think that covers everything. To recap: we're prioritizing the
+dataset v3 retrain to bring down false positives, demo stays on Friday, you'll have eval
+results by Wednesday, and I'll get the API spec doc to the UI team by end of week. We'll
+sort out the false-positive review and the Dr. Mehta scheduling separately. Thanks
+Rahul!
+
+Rahul: Sounds good, talk soon.
+
+[End of transcript]
